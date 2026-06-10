@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+
+{% for item in cart %}
+
+<h3>{{ item.name }}</h3>
+
+<p>Quantity: {{ item.quantity }}</p>
+
+<p>Instructions:</p>
+
+<p>{{ item.instructions }}</p>
+
+<p>
+Total:
+₹{{ item.price * item.quantity }}
+</p>
+
+<form action="/deleteitem" method="POST">
+
+    <input
+        type="hidden"
+        name="item_name"
+        value="{{ item.name }}">
+
+    <button type="submit">
+        Delete
+    </button>
+
+</form>
+<hr>
+
+{% endfor %}
+<h2>Grand Total: ₹{{ grand_total }}</h2>
+<br>
+
+<a href="/menu">
+    <button>Add Other Items</button>
+</a>
+<form action="/placeorder" method="POST">
+    <button type="submit">
+        Place Order
+    </button>
+</form>
+</body>
+</html>

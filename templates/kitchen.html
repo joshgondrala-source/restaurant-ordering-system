@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>kitchen Dashboard</title>
+</head>
+<body>
+
+<h1>kitchen Dashboard</h1>
+
+{% for order in orders %}
+
+<hr>
+
+<h2>ORDER #{{ order["order_id"] }}</h2>
+
+<h3>TABLE {{ order["table"] }}</h3>
+
+<hr>
+
+{% for item in order["items"] %}
+
+<p>
+<b>{{ item["name"] }}</b> x{{ item["quantity"] }}
+</p>
+
+<p>
+Note: {{ item["instructions"] }}
+</p>
+
+<br>
+
+{% endfor %}
+
+{% endfor %}
+
+</body>
+</html>

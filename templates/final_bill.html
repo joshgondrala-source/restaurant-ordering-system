@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Final Bill</title>
+</head>
+<body>
+
+<h1>Final Bill</h1>
+
+<p>Table: {{ table }}</p>
+
+<hr>
+
+<p><b>Food Total:</b> ₹{{ food_total }}</p>
+
+<p><b>GST (5%):</b> ₹{{ gst|round(2) }}</p>
+
+<p>
+<b>Discount ({{ discount }}%):</b>
+- ₹{{ discount_amount|round(2) }}
+</p>
+
+<hr>
+
+<h2>
+Amount To Be Paid:
+₹{{ rounded_total }}
+</h2>
+
+<hr>
+
+<p>
+Please complete your payment at the counter.
+</p>
+
+<p>
+Thank You For Dining With Us ❤️
+</p>
+
+<p>
+Visit Again!
+</p>
+
+<br><br>
+
+<form action="/markpaid" method="POST">
+
+    <input
+        type="hidden"
+        name="table"
+        value="{{ table }}">
+
+    <button type="submit">
+        Payment Received
+    </button>
+
+</form>

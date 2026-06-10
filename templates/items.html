@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Items</title>
+</head>
+<body>
+
+<h1>Table {{ table }}</h1>
+
+<h2>{{ category }}</h2>
+
+{% for item in items %}
+
+<div style="margin-bottom:20px">
+
+    <h3>
+        <a href="/itemdetails?name={{ item.name }}">
+            {{ item.name }}
+        </a>
+    </h3>
+
+    <p>₹{{ item.price }}</p>
+
+    <p>Serves: {{ item.serves }}</p>
+
+</div>
+
+<hr>
+
+{% endfor %}
+
+</body>
+</html>

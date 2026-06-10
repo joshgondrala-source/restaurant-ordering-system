@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manager Dashboard</title>
+</head>
+<body>
+
+<h1>Manager Dashboard</h1>
+
+{% for request in bill_requests %}
+
+<hr>
+
+<h2>Table {{ request["table"] }}</h2>
+
+{% set food_total = namespace(value=0) %}
+
+<h3>Orders</h3>
+
+{% for order in orders %}
+
+    {% if order["table"] == request["table"] %}
+
+        <p>
+        Order #{{ order["order_id"] }}
+        - ₹{{ order["total"] }}
+        </p>
+
+        {% set food_total.value = food_total.value + order["total"] %}
+
+    {% endif %}
+
+{% endfor %}
+
+<hr>
+
+<p>
+<b>Food Total:</b>
+₹{{ food_total.value }}
+</p>
+
+<p>
+<b>GST (5%):</b>
+₹{{ (food_total.value * 0.05)|round(2) }}
+</p>
+
+<form action="/generatebill" method="POST">
+
+    <input
+        type="hidden"
+        name="table"
+        value="{{ request['table'] }}">
+
+    <input
+        type="hidden"
+        name="food_total"
+        value="{{ food_total.value }}">
+
+    <label>Discount (%)</label>
+
+    <input
+        type="number"
+        name="discount"
+        value="0"
+        min="0"
+        max="100">
+
+    <br><br>
+
+    <button type="submit">
+        Generate Final Bill
+    </button>
+
+</form>
+
+{% endfor %}
+
+</body>
+</html>

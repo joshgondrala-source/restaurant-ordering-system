@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Success</title>
+</head>
+<body>
+
+<h1>✅ Order Placed Successfully</h1>
+
+<p>Order ID: {{ order_id }}</p>
+
+<p>Table: {{ table }}</p>
+
+<p>Latest Order Total: ₹{{ total }}</p>
+
+<hr>
+
+<h2>Orders So Far</h2>
+
+{% for order in table_orders %}
+
+<p>
+Order #{{ order.order_id }}
+-
+₹{{ order.total }}
+</p>
+
+{% endfor %}
+
+<hr>
+
+<h2>
+Running Table Total:
+₹{{ table_total }}
+</h2>
+
+<br>
+
+<a href="/menu">
+    <button>Add More Items</button>
+</a>
+<br><br>
+
+<form action="/requestbill" method="POST">
+    <button type="submit">
+        Request Bill
+    </button>
+</form>
+
+</body>
+</html>
