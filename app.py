@@ -187,13 +187,19 @@ def placeorder():
 
     for item in cart:
         total += item["price"] * item["quantity"]
+    table_order_count = 0
 
+    for order in orders:
+
+      if order["table"] == current_table:
+          table_order_count += 1
     orders.append({
         "order_id": order_counter,
         "table": current_table,
         "items": cart.copy(),
         "total": total,
-        "time": datetime.now().strftime("%I:%M %p")
+        "time": datetime.now().strftime("%I:%M %p"),
+        "status": "NEW TABLE" if table_order_count == 0 else "RUNNING TABLE"
     })
 
     cart.clear()
