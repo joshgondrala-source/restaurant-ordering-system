@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask import redirect
+from datetime import datetime
 
 app = Flask(__name__)
 cart=[]
@@ -191,7 +192,8 @@ def placeorder():
         "order_id": order_counter,
         "table": current_table,
         "items": cart.copy(),
-        "total": total
+        "total": total,
+        "time": datetime.now().strftime("%I:%M %p")
     })
 
     cart.clear()
@@ -202,20 +204,20 @@ def placeorder():
 
     for order in orders:
 
-       if order["table"] == current_table:
+        if order["table"] == current_table:
 
-         table_orders.append(order)
+            table_orders.append(order)
 
-         table_total += order["total"]
+            table_total += order["total"]
 
     return render_template(
-       "order_success.html",
+        "order_success.html",
         order_id=order_counter,
         table=current_table,
         total=total,
         table_orders=table_orders,
         table_total=table_total
-)
+    )
 @app.route("/kitchen")
 def kitchen():
 
