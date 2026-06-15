@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Veg Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2d5a27">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --surface: #ffffff;
+            --ink: #1e1e1e;
+            --muted: #8a8279;
+            --brand: #2d5a27;
+            --brand-dark: #1e3d1a;
+            --accent: #e8a838;
+            --accent-light: #f5d78e;
+            --veg: #4a9b43;
+            --veg-light: #e8f5e6;
+            --radius: 18px;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 32px rgba(45,90,39,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        html { font-size: 16px; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding-bottom: 40px;
+        }
+
+        /* ── Header ── */
+        .header {
+            position: sticky;
+            top: 0; z-index: 50;
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+            padding: 16px 20px 20px;
+            box-shadow: 0 4px 24px rgba(45,90,39,0.3);
+        }
+
+        .header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 20px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:active { transform: scale(0.92); background: rgba(255,255,255,0.25); }
+
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .header-accent {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(232,168,56,0.4);
+        }
+
+        /* ── Table Chip ── */
+        .table-chip {
+            max-width: 480px;
+            margin: -12px auto 0;
+            position: relative; z-index: 51;
+            display: flex; justify-content: center;
+        }
+
+        .table-badge {
+            background: var(--surface);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brand);
+            box-shadow: var(--shadow);
+            display: flex; align-items: center; gap: 8px;
+            border: 2px solid var(--accent-light);
+        }
+
+        .table-badge::before {
+            content: '';
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--veg);
+            box-shadow: 0 0 8px var(--veg);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.8); }
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            text-align: center;
+            padding: 28px 20px 8px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .hero-emoji {
+            font-size: 56px;
+            line-height: 1;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--brand);
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+        }
+
+        .hero p {
+            font-size: 14px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            max-width: 480px;
+            margin: 16px auto;
+            display: flex; align-items: center; gap: 12px;
+            padding: 0 20px;
+        }
+        .divider::before, .divider::after {
+            content: ''; flex: 1; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+        }
+        .divider span {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ── Grid ── */
+        .grid {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        /* ── Category Card ── */
+        .cat-card {
+            position: relative;
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 18px 14px 14px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--ink);
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 140px;
+            overflow: hidden;
+        }
+
+        .cat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--veg), #6bc960);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .cat-card:active {
+            transform: scale(0.97) translateY(2px);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+
+        .cat-card:active::before { opacity: 1; }
+
+        .emoji-wrap {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--veg-light), #fff);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+            box-shadow: inset 0 2px 6px rgba(74,155,67,0.1), 0 2px 8px rgba(74,155,67,0.08);
+            flex-shrink: 0;
+        }
+
+        .cat-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .cat-count {
+            font-size: 12px;
+            color: var(--veg);
+            font-weight: 600;
+            background: var(--veg-light);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        .arrow-btn {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--veg-light);
+            border: none;
+            color: var(--veg);
+            font-size: 14px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .cat-card:active .arrow-btn {
+            background: var(--veg);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* ── Bottom Spacer ── */
+        .spacer { height: 30px; }
+
+        /* ── Subtle background pattern ── */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: radial-gradient(circle at 20% 50%, rgba(74,155,67,0.04) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(232,168,56,0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @media (min-width: 540px) {
+            .grid { gap: 18px; padding: 0 20px; }
+            .cat-card { min-height: 160px; padding: 22px 16px 16px; }
+            .emoji-wrap { width: 64px; height: 64px; font-size: 32px; }
+            .cat-title { font-size: 16px; }
+        }
+    </style>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</head>
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-bar">
+            <button class="back-btn" onclick="history.back()">&#x2190;</button>
+            <div class="header-title">BOBBY DA DHABA</div>
+            <div class="header-accent">&#x1F343;</div>
+        </div>
+    </div>
+
+    <!-- Table Badge -->
+    <div class="table-chip">
+        <div class="table-badge">
+            Table {{ table }}
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <span class="hero-emoji">&#x1F96C;</span>
+        <h1>Veg Items</h1>
+        <p>Pure vegetarian delights</p>
+    </div>
+
+    <div class="divider"><span>Categories</span></div>
+
+    <!-- Category Grid -->
+    <div class="grid">
+
+        <a href="/items?table={{ table }}&category=veg_soups" class="cat-card">
+            <div class="emoji-wrap">&#x1F963;</div>
+            <div class="cat-title">Veg Soups</div>
+            <div class="cat-count">Warm &amp; hearty</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_chinese" class="cat-card">
+            <div class="emoji-wrap">&#x1F35C;</div>
+            <div class="cat-title">Veg Chinese</div>
+            <div class="cat-count">Flavour-packed</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_starters" class="cat-card">
+            <div class="emoji-wrap">&#x1F360;</div>
+            <div class="cat-title">Veg Starters</div>
+            <div class="cat-count">Crispy bites</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_combos" class="cat-card">
+            <div class="emoji-wrap">&#x1F371;</div>
+            <div class="cat-title">Veg Combos</div>
+            <div class="cat-count">Meal deals</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_tikka" class="cat-card">
+            <div class="emoji-wrap">&#x1F525;</div>
+            <div class="cat-title">Tikka &amp; Kabab</div>
+            <div class="cat-count">Smoky &amp; spiced</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_rice" class="cat-card">
+            <div class="emoji-wrap">&#x1F35A;</div>
+            <div class="cat-title">Rice &amp; Chawal</div>
+            <div class="cat-count">Fragrant grains</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_curries" class="cat-card">
+            <div class="emoji-wrap">&#x1F35B;</div>
+            <div class="cat-title">Veg Curries</div>
+            <div class="cat-count">Rich gravies</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_parathas" class="cat-card">
+            <div class="emoji-wrap">&#x1FAD3;</div>
+            <div class="cat-title">Veg Parathas</div>
+            <div class="cat-count">Flaky breads</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=dal" class="cat-card">
+            <div class="emoji-wrap">&#x1F963;</div>
+            <div class="cat-title">Dal</div>
+            <div class="cat-count">Comfort bowls</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
+
+        <a href="/items?table={{ table }}&category=veg_biryani" class="cat-card">
+            <div class="emoji-wrap">&#x1F35A;</div>
+            <div class="cat-title">Veg Biryani</div>
+            <div class="cat-count">Aromatic rice</div>
+            <div class="arrow-btn">&#x2192;</div>
+        </a>
