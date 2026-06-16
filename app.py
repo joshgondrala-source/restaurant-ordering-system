@@ -611,5 +611,17 @@ def papad():
         "papad.html",
         table=table
     )
+takeaway_token = 1
+
+@app.route("/takeaway")
+def takeaway():
+
+    global takeaway_token
+
+    token = f"TK{takeaway_token:03d}"
+
+    takeaway_token += 1
+
+    return redirect(f"/menu?table={token}")
 if __name__ == "__main__":
     app.run(debug=True) 
