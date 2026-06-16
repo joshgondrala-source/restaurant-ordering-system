@@ -13,63 +13,63 @@ paid_tables = []
 # MENU DATA
 restaurant_menu = {
    "veg_soups": [
-{"name": "Sweet Corn Soup Veg", "price": 0},
-{"name": "Hot N Sour Veg", "price": 0},
-{"name": "Lemon Coriander Soup", "price": 0},
-{"name": "Noodles Soup Veg", "price": 0},
-{"name": "Veg Manchow Soup", "price": 0}
+{"name": "Sweet Corn Soup Veg", "price": 99},
+{"name": "Hot N Sour Veg", "price": 99},
+{"name": "Lemon Coriander Soup", "price": 99},
+{"name": "Noodles Soup Veg", "price": 99},
+{"name": "Veg Manchow Soup", "price": 99}
 ],
 
 "veg_starters": [
-{"name": "Aloo 65", "price": 0},
-{"name": "Honey Chilli Potato", "price": 0},
-{"name": "Gobi Manchurian", "price": 0},
-{"name": "Chilli Babycorn", "price": 0},
-{"name": "Babycorn 65", "price": 0},
-{"name": "Paneer 65", "price": 0},
-{"name": "Chilli Paneer", "price": 0},
-{"name": "Veg Manchurian", "price": 0},
-{"name": "Chilli Gobi", "price": 0},
-{"name": "Golden Crispy Corn", "price": 0},
-{"name": "Paneer Majestic", "price": 0},
-{"name": "Chilli Mushroom", "price": 0},
-{"name": "Onion Rings", "price": 0},
-{"name": "Creamy Paneer", "price": 0}
+{"name": "Aloo 65", "price": 169},
+{"name": "Honey Chilli Potato", "price": 199},
+{"name": "Gobi Manchurian", "price": 189},
+{"name": "Chilli Babycorn", "price": 229},
+{"name": "Babycorn 65", "price": 229},
+{"name": "Paneer 65", "price": 249},
+{"name": "Chilli Paneer", "price": 249},
+{"name": "Veg Manchurian", "price": 189},
+{"name": "Chilli Gobi", "price": 179},
+{"name": "Golden Crispy Corn", "price": 249},
+{"name": "Paneer Majestic", "price": 259},
+{"name": "Chilli Mushroom", "price": 239},
+{"name": "Onion Rings", "price": 179},
+{"name": "Creamy Paneer", "price": 169}
 ],
 
 "veg_tikka": [
-{"name": "Paneer Tikka", "price": 0}
+{"name": "Paneer Tikka", "price": 299}
 ],
 
 "veg_curries": [
-{"name": "Mix Veg Curry", "price": 0},
-{"name": "Jeera Wale Aloo", "price": 0},
-{"name": "Aloo Gobi", "price": 0},
-{"name": "Gobi Mutter", "price": 0},
-{"name": "Shahi Paneer", "price": 0},
-{"name": "Paneer Butter Masala", "price": 0},
-{"name": "Paneer Lababdar", "price": 0},
-{"name": "Malai Kofta", "price": 0},
-{"name": "Dum Aloo", "price": 0},
-{"name": "Paneer Tikka Masala", "price": 0},
-{"name": "Paneer Bhurji", "price": 0},
-{"name": "Kaju Paneer", "price": 0},
-{"name": "Mutter Paneer", "price": 0},
-{"name": "Kadhai Paneer", "price": 0},
-{"name": "Kaju Tomato", "price": 0}
+{"name": "Mix Veg Curry", "price": 189},
+{"name": "Jeera Wale Aloo", "price": 189},
+{"name": "Aloo Gobi", "price": 189},
+{"name": "Gobi Mutter", "price": 189},
+{"name": "Shahi Paneer", "price": 329},
+{"name": "Paneer Butter Masala", "price": 249},
+{"name": "Paneer Lababdar", "price": 249},
+{"name": "Malai Kofta", "price": 229},
+{"name": "Dum Aloo", "price": 299},
+{"name": "Paneer Tikka Masala", "price": 329},
+{"name": "Paneer Bhurji", "price": 329},
+{"name": "Kaju Paneer", "price": 329},
+{"name": "Mutter Paneer", "price": 249},
+{"name": "Kadhai Paneer", "price": 249},
+{"name": "Kaju Tomato", "price": 289}
 ],
 
 "dal": [
-{"name": "Tomato Dal", "price": 0},
-{"name": "Dal Fry", "price": 0},
-{"name": "Tadka Wali Dal", "price": 0}
+{"name": "Tomato Dal", "price": 149},
+{"name": "Dal Fry", "price": 149},
+{"name": "Tadka Wali Dal", "price": 179}
 ],
 
 "veg_biryani": [
-{"name": "Veg Biryani", "price": 0},
-{"name": "Paneer Biryani", "price": 0},
-{"name": "Mushroom Biryani", "price": 0},
-{"name": "Kaju Biryani", "price": 0}
+{"name": "Veg Biryani", "price": 229},
+{"name": "Paneer Biryani", "price": 249},
+{"name": "Mushroom Biryani", "price": 249},
+{"name": "Kaju Biryani", "price": 259}
 ],
 
 "veg_chinese": [
