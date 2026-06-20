@@ -73,74 +73,74 @@ restaurant_menu = {
 ],
 
 "veg_chinese": [
-{"name": "Veg Noodles", "price": 0},
-{"name": "Veg Fried Rice", "price": 0},
-{"name": "Veg Schezwan Noodles", "price": 0},
-{"name": "Veg Schezwan Rice", "price": 0},
-{"name": "Veg Chilli Garlic Rice", "price": 0},
-{"name": "Paneer Fried Rice", "price": 0},
-{"name": "Kaju Rice", "price": 0},
-{"name": "Kaju Paneer Fried Rice", "price": 0}
+{"name": "Veg Noodles", "price": 159},
+{"name": "Veg Fried Rice", "price": 169},
+{"name": "Veg Schezwan Noodles", "price": 169},
+{"name": "Veg Schezwan Rice", "price": 179},
+{"name": "Veg Chilli Garlic Rice", "price": 179},
+{"name": "Paneer Fried Rice", "price": 199},
+{"name": "Kaju Rice", "price": 199},
+{"name": "Kaju Paneer Fried Rice", "price": 249}
 ],
 
 "veg_combos": [
-{"name": "Veg Fried Rice + Veg Manchurian Gravy", "price": 0},
-{"name": "Veg Noodles + Veg Manchurian Gravy", "price": 0}
+{"name": "Veg Fried Rice + Veg Manchurian Gravy", "price": 269},
+{"name": "Veg Noodles + Veg Manchurian Gravy", "price": 269}
 ],
 
 "veg_rice": [
-{"name": "Plain Rice", "price": 0},
-{"name": "Jeera Rice", "price": 0},
-{"name": "Green Peas Pulao", "price": 0},
-{"name": "Curd Rice", "price": 0}
+{"name": "Plain Rice", "price": 99},
+{"name": "Jeera Rice", "price": 159},
+{"name": "Green Peas Pulao", "price": 179},
+{"name": "Curd Rice", "price": 179}
 ],
 
 "veg_parathas": [
-{"name": "Aloo Paratha", "price": 0},
-{"name": "Onion Paratha", "price": 0},
-{"name": "Paneer Paratha", "price": 0},
-{"name": "Gobi Paratha", "price": 0},
-{"name": "Lachha Paratha", "price": 0}
+{"name": "Aloo Paratha", "price": 119},
+{"name": "Onion Paratha", "price": 119},
+{"name": "Paneer Paratha", "price": 179},
+{"name": "Gobi Paratha", "price": 119},
+{"name": "Lachha Paratha", "price": 119}
 ],
 "nonveg_soups": [
-{"name": "Chicken Sweet Corn Soup", "price": 0},
-{"name": "Chicken Noodles Soup", "price": 0},
-{"name": "Chicken Hot N Sour Soup", "price": 0},
-{"name": "Chicken Manchow Soup", "price": 0},
-{"name": "Chicken Corn Soup", "price": 0}
+{"name": "Chicken Sweet Corn Soup", "price": 139},
+{"name": "Chicken Noodles Soup", "price": 139},
+{"name": "Chicken Hot N Sour Soup", "price": 139},
+{"name": "Chicken Manchow Soup", "price": 139},
+{"name": "Chicken Corn Soup", "price": 139}
 ],
 
 "chicken_starters": [
 
-{"name": "Chicken 65", "price": 0},
-{"name": "Chicken Lollipop", "price": 0},
-{"name": "Drums of Heaven", "price": 0},
-{"name": "Chicken Manchurian", "price": 0},
-{"name": "Chicken Majestic", "price": 0},
-{"name": "Pepper Chicken", "price": 0},
-{"name": "Chicken 555", "price": 0},
-{"name": "Spicy Fried Chicken", "price": 0},
-{"name": "Chilli Chicken", "price": 0},
-{"name": "Dragon Chicken", "price": 0},
-{"name": "Hakka Chilli Chicken", "price": 0}
+{"name": "Chicken 65", "price":289},
+{"name": "Chicken Lollipop", "price": 289},
+{"name": "Drums of Heaven", "price": 289},
+{"name": "Chicken Manchurian", "price": 289},
+{"name": "Chicken Majestic", "price": 299},
+{"name": "Pepper Chicken", "price": 299},
+{"name": "Chicken 555", "price": 299},
+{"name": "Spicy Fried Chicken", "price": 299},
+{"name": "Chilli Chicken", "price": 269},
+{"name": "Dragon Chicken", "price": 299},
+{"name": "Hakka Chilli Chicken", "price": 299}
 
 
 ],
 
 "egg_starters": [
 
-{"name": "Chilli Egg", "price": 0},
-{"name": "Egg 65", "price": 0},
-{"name": "Egg Manchurian", "price": 0}
+{"name": "Chilli Egg", "price": 179},
+{"name": "Egg 65", "price": 179},
+{"name": "Egg Manchurian", "price": 189}
 
 
 ],
 
 "nonveg_tikka": [
 
-{"name": "Tandoori Chicken Half", "price": 0},
-{"name": "Tandoori Chicken Full", "price": 0},
-{"name": "Chicken Tikka", "price": 0}
+{"name": "Tandoori Chicken Half", "price": 319},
+{"name": "Tandoori Chicken Full", "price": 579},
+{"name": "Chicken Tikka", "price": 389}
 
 
 ],
@@ -148,14 +148,14 @@ restaurant_menu = {
 "sea_food": [
 
 
-{"name": "Chilli Fish", "price": 0},
-{"name": "Apollo Fish", "price": 0},
-{"name": "Fish Finger", "price": 0},
-{"name": "Butter Garlic Prawns", "price": 0},
-{"name": "Fried Prawns", "price": 0},
-{"name": "Chilli Prawns", "price": 0},
-{"name": "Golden Fried Prawns", "price": 0},
-{"name": "Salt & Pepper Prawns", "price": 0}
+{"name": "Chilli Fish", "price": 329},
+{"name": "Apollo Fish", "price": 329},
+{"name": "Fish Finger", "price": 329},
+{"name": "Butter Garlic Prawns", "price": 349},
+{"name": "Fried Prawns", "price": 349},
+{"name": "Chilli Prawns", "price": 349},
+{"name": "Golden Fried Prawns", "price": 349},
+{"name": "Salt & Pepper Prawns", "price": 349}
 
 
 ],
@@ -163,16 +163,16 @@ restaurant_menu = {
 "chicken_curries": [
 
 
-{"name": "Chicken Tari Wala", "price": 0},
-{"name": "Rara Chicken", "price": 0},
-{"name": "Kadai Chicken", "price": 0},
-{"name": "Punjabi Butter Chicken", "price": 0},
-{"name": "Chicken Masala", "price": 0},
-{"name": "Chicken Tikka Masala", "price": 0},
-{"name": "Chicken Patyala", "price": 0},
-{"name": "Chicken Roganjosh", "price": 0},
-{"name": "Chicken Curry", "price": 0},
-{"name": "Butter Chicken", "price": 0}
+{"name": "Chicken Tari Wala", "price": 299},
+{"name": "Rara Chicken", "price": 299},
+{"name": "Kadai Chicken", "price": 329},
+{"name": "Punjabi Butter Chicken", "price": 329},
+{"name": "Chicken Masala", "price": 299},
+{"name": "Chicken Tikka Masala", "price": 329},
+{"name": "Chicken Patyala", "price": 329},
+{"name": "Chicken Roganjosh", "price": 299},
+{"name": "Chicken Curry", "price": 299},
+{"name": "Butter Chicken", "price": 329}
 
 
 ],
@@ -180,8 +180,8 @@ restaurant_menu = {
 "egg_curries": [
 
 
-{"name": "Egg Curry", "price": 0},
-{"name": "Egg Bhurji", "price": 0}
+{"name": "Egg Curry", "price": 159},
+{"name": "Egg Bhurji", "price": 169}
 
 
 ],
@@ -189,16 +189,16 @@ restaurant_menu = {
 "biryani": [
 
 
-{"name": "Egg Biryani", "price": 0},
-{"name": "Chicken Dum Biryani", "price": 0},
-{"name": "Chicken Tikka Biryani", "price": 0},
-{"name": "Chicken 65 Biryani", "price": 0},
-{"name": "Chicken Fry Piece Biryani", "price": 0},
-{"name": "Lollipop Biryani", "price": 0},
-{"name": "Tandoori Biryani", "price": 0},
-{"name": "Fish Biryani", "price": 0},
-{"name": "Prawn Biryani", "price": 0},
-{"name": "Special Chicken Biryani", "price": 0}
+{"name": "Egg Biryani", "price": 219},
+{"name": "Chicken Dum Biryani", "price": 289},
+{"name": "Chicken Tikka Biryani", "price": 289},
+{"name": "Chicken 65 Biryani", "price": 289},
+{"name": "Chicken Fry Piece Biryani", "price": 289},
+{"name": "Lollipop Biryani", "price": 299},
+{"name": "Tandoori Biryani", "price": 299},
+{"name": "Fish Biryani", "price": 299},
+{"name": "Prawn Biryani", "price": 329},
+{"name": "Special Chicken Biryani", "price": 369}
 
 
 ],
@@ -206,17 +206,17 @@ restaurant_menu = {
 "nonveg_chinese": [
 
 
-{"name": "Egg Noodles", "price": 0},
-{"name": "Egg Schezwan Noodles", "price": 0},
-{"name": "Chicken Noodles", "price": 0},
-{"name": "Chicken Schezwan Noodles", "price": 0},
-{"name": "Prawn Noodles", "price": 0},
-{"name": "Mix Non Veg Noodles", "price": 0},
-{"name": "Egg Fried Rice", "price": 0},
-{"name": "Chicken Fried Rice", "price": 0},
-{"name": "Chicken Schezwan Rice", "price": 0},
-{"name": "Chicken Chilli Garlic Rice", "price": 0},
-{"name": "Mixed Non Veg Fried Rice", "price": 0}
+{"name": "Egg Noodles", "price": 179},
+{"name": "Egg Schezwan Noodles", "price": 189},
+{"name": "Chicken Noodles", "price": 189},
+{"name": "Chicken Schezwan Noodles", "price": 209},
+{"name": "Prawn Noodles", "price": 249},
+{"name": "Mix Non Veg Noodles", "price": 299},
+{"name": "Egg Fried Rice", "price": 179},
+{"name": "Chicken Fried Rice", "price": 199},
+{"name": "Chicken Schezwan Rice", "price": 209},
+{"name": "Chicken Chilli Garlic Rice", "price": 199},
+{"name": "Mixed Non Veg Fried Rice", "price": 299}
 
 
 ],
@@ -224,8 +224,8 @@ restaurant_menu = {
 "nonveg_combos": [
 
 
-{"name": "Chicken Fried Rice + Chicken Manchurian", "price": 0},
-{"name": "Chicken Noodles + Chicken Manchurian", "price": 0}
+{"name": "Chicken Fried Rice + Chicken Manchurian", "price": 329},
+{"name": "Chicken Noodles + Chicken Manchurian", "price": 329}
 
 
 ],
@@ -233,17 +233,17 @@ restaurant_menu = {
 "nonveg_rice": [
 
 
-{"name": "Plain Rice", "price": 0},
-{"name": "Jeera Rice", "price": 0},
-{"name": "Green Peas Pulao", "price": 0},
-{"name": "Curd Rice", "price": 0}
+{"name": "Plain Rice", "price": 99},
+{"name": "Jeera Rice", "price": 159},
+{"name": "Green Peas Pulao", "price": 179},
+{"name": "Curd Rice", "price": 179}
 
 
 ],
 
 "nonveg_parathas": [
 
-{"name": "Chicken Keema Paratha", "price": 0}
+{"name": "Chicken Keema Paratha", "price": 179}
 
 ],
 "rotis": [
@@ -278,7 +278,7 @@ restaurant_menu = {
 
 {"name": "Chicken Family Pack", "price": 579},
 {"name": "Chicken Biryani Jumbo Pack", "price": 1099},
-{"name": "Veg Biryani Jumbo Family Pack", "price": 899}
+{"name": "Veg Biryani Jumbo Pack", "price": 899}
 
 
 ],
@@ -560,57 +560,7 @@ def nonveg():
         "nonveg.html",
         table=table
     )
-@app.route("/roti")
-def roti():
 
-    table = request.args.get("table")
-
-    return render_template(
-        "roti.html",
-        table=table
-    )
-@app.route("/chopsuey")
-def chopsuey():
-
-    table = request.args.get("table")
-
-    return render_template(
-        "chopsuey.html",
-        table=table
-    )
-
-
-@app.route("/jumbo")
-def jumbo():
-
-    table = request.args.get("table")
-
-    return render_template(
-        "jumbo.html",
-        table=table
-    )
-
-
-@app.route("/beverages")
-def beverages():
-
-    table = request.args.get("table")
-
-    return render_template(
-        "beverages.html",
-        table=table
-    )
-
-
-@app.route("/papad")
-def papad():
-
-    table = request.args.get("table")
-
-    return render_template(
-        "papad.html",
-        table=table
-    )
 takeaway_token = 1
 
 @app.route("/takeaway")
