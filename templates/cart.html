@@ -1,75 +1,453 @@
 <!DOCTYPE html>
-<html>
-<style>
-
-body{
-    font-size:24px;
-    padding:20px;
-}
-
-button{
-    font-size:22px;
-    padding:15px;
-}
-
-input{
-    font-size:22px;
-    padding:10px;
-}
-
-textarea{
-    font-size:20px;
-}
-
-</style>
+<html lang="en">
 <head>
-    <title>Cart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Your Cart — Bobby Da Dhaba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#5c1010">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:         #f2e9d8;
+  --bg2:        #e8dbc4;
+  --paper:      #fffdf7;
+  --ink:        #1e1208;
+  --ink2:       #4a3828;
+  --muted:      #8c7460;
+  --line:       #ddd0b8;
+  --brand:      #5c1010;
+  --brand2:     #7a1a1a;
+  --brand-dark: #3d0808;
+  --brand-text: #fff8f0;
+  --gold:       #c8881e;
+  --gold-soft:  #f7e3b8;
+  --gold-bg:    #fdf3df;
+  --danger:     #c02020;
+  --danger-soft:#fdeaea;
+  --shadow-sm:  0 3px 10px rgba(30,18,8,.10);
+  --shadow-md:  0 8px 24px rgba(30,18,8,.15);
+  --shadow-lg:  0 18px 48px rgba(30,18,8,.22);
+  --r:          20px;
+  --r-sm:       13px;
+}
+
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+html { background: var(--bg); }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse 900px 500px at -5% -5%, rgba(200,136,30,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 400px at 105% 5%, rgba(92,16,16,.18) 0%, transparent 50%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  background-attachment: fixed;
+  max-width: 500px;
+  margin-inline: auto;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 160px);
+}
+
+/* ── HEADER ── */
+.header {
+  position: sticky; top: 0; z-index: 30;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+  color: var(--brand-text);
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 16px;
+  border-bottom: 3px solid var(--gold);
+  box-shadow: var(--shadow-lg);
+  isolation: isolate; overflow: hidden;
+}
+.header::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 500px 180px at 50% -60px, rgba(200,136,30,.32), transparent 70%);
+  pointer-events: none; z-index: -1;
+}
+.header::after {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  border: 1px solid rgba(200,136,30,.25); pointer-events: none;
+}
+.header-row { display: flex; align-items: center; gap: 10px; position: relative; z-index: 1; }
+.back-btn {
+  width: 44px; height: 44px; border-radius: var(--r-sm);
+  background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; text-decoration: none;
+  transition: background .14s, transform .14s;
+}
+.back-btn:active { background: rgba(255,255,255,.22); transform: scale(.91); }
+.back-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.header-center { flex: 1; text-align: center; }
+.header-crest {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: 1.5px dashed rgba(200,136,30,.6);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 5px;
+}
+.header-brand { font-family: 'Fraunces', serif; font-weight: 900; font-size: 20px; letter-spacing: 1.5px; line-height: 1; color: #fff; }
+.table-chip {
+  flex-shrink: 0; display: inline-flex; align-items: center; gap: 7px;
+  height: 44px; padding: 0 14px; border-radius: var(--r-sm);
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2);
+  font-size: 12px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--gold-soft);
+}
+.table-chip .live {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(200,136,30,.3); }
+  50%      { box-shadow: 0 0 0 7px rgba(200,136,30,0); }
+}
+
+/* ── HERO ── */
+.cart-hero {
+  text-align: center;
+  padding: 26px 20px 6px;
+}
+.hero-label {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-size: 10.5px; font-weight: 700;
+  letter-spacing: 3.5px; text-transform: uppercase; color: var(--brand); margin-bottom: 12px;
+}
+.hero-label::before, .hero-label::after {
+  content: ''; display: inline-block; width: 22px; height: 1px; background: var(--brand); opacity: .45;
+}
+.cart-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(28px, 8vw, 38px); font-weight: 900;
+  letter-spacing: -1px; line-height: 1.05; color: var(--ink);
+}
+.cart-title em { font-style: italic; font-weight: 400; color: var(--brand); }
+.cart-count {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 10px; padding: 6px 14px; border-radius: 999px;
+  background: var(--gold-bg); border: 1.5px solid var(--line);
+  font-size: 13px; font-weight: 700; color: var(--ink2);
+}
+
+/* ornament */
+.ornament { display: flex; align-items: center; gap: 12px; padding: 20px 14px 14px; }
+.ornament::before, .ornament::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.ornament-inner { color: var(--gold); font-size: 12px; letter-spacing: 6px; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  margin: 0 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  box-shadow: var(--shadow-sm);
+}
+.empty-icon { font-size: 60px; margin-bottom: 16px; }
+.empty-title { font-family: 'Fraunces', serif; font-size: 22px; font-weight: 900; color: var(--ink); }
+.empty-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+/* ── CART ITEMS ── */
+.cart-list { display: flex; flex-direction: column; gap: 12px; padding: 0 14px; }
+
+.cart-card {
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+/* top swatch */
+.card-swatch {
+  height: 6px;
+  background: linear-gradient(90deg, var(--brand) 0%, var(--brand2) 60%, var(--gold) 100%);
+}
+.card-body { padding: 16px 16px 14px; }
+
+.card-top { display: flex; align-items: flex-start; gap: 12px; }
+.card-emoji {
+  width: 50px; height: 50px; border-radius: 14px;
+  background: var(--gold-bg); border: 1.5px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 26px; flex-shrink: 0;
+  box-shadow: inset 0 -2px 0 rgba(0,0,0,.07);
+}
+.card-info { flex: 1; min-width: 0; }
+.card-name {
+  font-family: 'Fraunces', serif;
+  font-size: 18px; font-weight: 900; letter-spacing: -.3px;
+  line-height: 1.2; color: var(--ink);
+}
+.card-qty {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 5px;
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.card-qty::before {
+  content: ''; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--gold); display: inline-block;
+}
+.card-price {
+  font-family: 'Fraunces', serif;
+  font-size: 20px; font-weight: 900; color: var(--brand);
+  letter-spacing: -.3px; white-space: nowrap;
+}
+
+/* instructions box */
+.card-instructions {
+  margin-top: 12px;
+  padding: 10px 13px;
+  border-radius: var(--r-sm);
+  background: var(--gold-bg);
+  border: 1px solid var(--line);
+  font-size: 13px; font-weight: 500; color: var(--ink2);
+  line-height: 1.5;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.instr-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+
+/* delete button */
+.card-foot {
+  margin-top: 14px; padding-top: 12px;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: flex-end;
+}
+.delete-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 999px;
+  background: var(--danger-soft);
+  border: 1.5px solid #f0c0c0;
+  color: var(--danger);
+  font-size: 13px; font-weight: 800;
+  cursor: pointer; font-family: inherit;
+  transition: background .13s, border-color .13s, transform .13s;
+}
+.delete-btn:active { background: #fbd4d4; border-color: var(--danger); transform: scale(.96); }
+
+/* ── BILL SUMMARY ── */
+.bill-card {
+  margin: 16px 14px 0;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.bill-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.bill-icon {
+  width: 38px; height: 38px; border-radius: 11px;
+  background: var(--gold-bg); border: 1px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.bill-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900; color: var(--ink); }
+.bill-body { padding: 14px 18px 18px; }
+.bill-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0;
+  font-size: 14px; color: var(--ink2); font-weight: 600;
+  border-bottom: 1px dashed var(--line);
+}
+.bill-row:last-child { border-bottom: none; }
+.bill-row.total {
+  margin-top: 4px; padding-top: 14px;
+  border-top: 2px solid var(--line); border-bottom: none;
+}
+.bill-row.total .bill-label {
+  font-family: 'Fraunces', serif; font-size: 18px; font-weight: 900; color: var(--ink);
+}
+.bill-row.total .bill-val {
+  font-family: 'Fraunces', serif; font-size: 24px; font-weight: 900; color: var(--brand);
+}
+.bill-label { }
+.bill-val { font-weight: 700; color: var(--ink); }
+
+/* ── BOTTOM ACTION BAR ── */
+.action-bar {
+  position: fixed;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: min(100%, 500px);
+  padding: 12px 14px calc(env(safe-area-inset-bottom, 0px) + 14px);
+  background: linear-gradient(to top, var(--bg2) 60%, transparent);
+  display: flex; flex-direction: column; gap: 10px;
+  z-index: 40;
+}
+
+.btn-place {
+  width: 100%; height: 62px;
+  border: none; border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand2) 0%, var(--brand-dark) 100%);
+  color: var(--brand-text);
+  font-family: 'Fraunces', serif;
+  font-size: 20px; font-weight: 900; letter-spacing: .3px;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(92,16,16,.5);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  transition: transform .15s, box-shadow .15s;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.btn-place:active { transform: scale(.97); box-shadow: 0 6px 16px rgba(92,16,16,.4); }
+.btn-place .btn-icon { font-size: 22px; }
+
+.btn-add {
+  width: 100%; height: 52px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--brand);
+  font-family: 'Fraunces', serif;
+  font-size: 17px; font-weight: 900; letter-spacing: .2px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  transition: background .13s, border-color .13s, transform .13s;
+  text-decoration: none;
+}
+.btn-add:active { background: var(--gold-bg); border-color: var(--gold); transform: scale(.97); }
+</style>
 </head>
 <body>
 
-<h1>Your Cart</h1>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-row">
+    <a href="javascript:history.back()" class="back-btn" aria-label="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <div class="header-center">
+      <div class="header-crest">🍽️</div>
+      <div class="header-brand">BOBBY DA DHABA</div>
+    </div>
+    <div class="table-chip">
+      <span class="live"></span>
+      Table {{ table }}
+    </div>
+  </div>
+</div>
 
-{% for item in cart %}
+<!-- HERO -->
+<div class="cart-hero">
+  <div class="hero-label">Order Summary</div>
+  <h1 class="cart-title">Your <em>Cart</em></h1>
+  <div class="cart-count">🛒 {{ cart | length }} {{ 'item' if cart | length == 1 else 'items' }}</div>
+</div>
 
-<h3>{{ item.name }}</h3>
+<div class="ornament"><div class="ornament-inner">✦ ✦ ✦</div></div>
 
-<p>Quantity: {{ item.quantity }}</p>
+{% if cart %}
 
-<p>Instructions:</p>
+<!-- CART ITEMS -->
+<div class="cart-list">
+  {% for item in cart %}
+  <div class="cart-card">
+    <div class="card-swatch"></div>
+    <div class="card-body">
+      <div class="card-top">
+        <div class="card-emoji" data-name="{{ item.name }}">🍽️</div>
+        <div class="card-info">
+          <div class="card-name">{{ item.name }}</div>
+          <div class="card-qty">Qty: {{ item.quantity }}</div>
+        </div>
+        <div class="card-price">₹{{ item.price * item.quantity }}</div>
+      </div>
 
-<p>{{ item.instructions }}</p>
+      {% if item.instructions %}
+      <div class="card-instructions">
+        <span class="instr-icon">📝</span>
+        <span>{{ item.instructions }}</span>
+      </div>
+      {% endif %}
 
-<p>
-Total:
-₹{{ item.price * item.quantity }}
-</p>
+      <div class="card-foot">
+        <form action="/deleteitem" method="POST">
+          <input type="hidden" name="item_name" value="{{ item.name }}">
+          <button type="submit" class="delete-btn">
+            🗑️ Remove
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
-<form action="/deleteitem" method="POST">
+<!-- BILL SUMMARY -->
+<div class="bill-card">
+  <div class="bill-head">
+    <div class="bill-icon">🧾</div>
+    <div class="bill-title">Bill Summary</div>
+  </div>
+  <div class="bill-body">
+    {% for item in cart %}
+    <div class="bill-row">
+      <span class="bill-label">{{ item.name }} × {{ item.quantity }}</span>
+      <span class="bill-val">₹{{ item.price * item.quantity }}</span>
+    </div>
+    {% endfor %}
+    <div class="bill-row total">
+      <span class="bill-label">Grand Total</span>
+      <span class="bill-val">₹{{ grand_total }}</span>
+    </div>
+  </div>
+</div>
 
-    <input
-        type="hidden"
-        name="item_name"
-        value="{{ item.name }}">
+{% else %}
 
-    <button type="submit">
-        Delete
+<!-- EMPTY STATE -->
+<div class="empty-state">
+  <div class="empty-icon">🍽️</div>
+  <div class="empty-title">Your cart is empty</div>
+  <div class="empty-sub">Add some delicious dishes from our menu</div>
+</div>
+
+{% endif %}
+
+<!-- BOTTOM ACTION BAR -->
+<div class="action-bar">
+  <a href="/menu?table={{ table }}" class="btn-add">
+    ＋ Add More Items
+  </a>
+  {% if cart %}
+  <form action="/placeorder" method="POST">
+    <button type="submit" class="btn-place">
+      <span class="btn-icon">✅</span>
+      Place Order · ₹{{ grand_total }}
     </button>
+  </form>
+  {% endif %}
+</div>
 
-</form>
-<hr>
+<script>
+const EMOJI_MAP = [
+  [/chicken/i,'🍗'],[/leg.piece|leg/i,'🍗'],[/wings?/i,'🍗'],
+  [/tikka/i,'🍢'],[/kebab|kabab/i,'🥩'],[/tandoor/i,'🔥'],
+  [/biryani/i,'🍚'],[/fried.rice|rice/i,'🍚'],
+  [/noodle|chow/i,'🍜'],[/chop.?suey/i,'🍜'],[/manchurian/i,'🥣'],
+  [/soup/i,'🍲'],[/roti|chapati|naan|paratha|bread/i,'🫓'],
+  [/dal|daal/i,'🫕'],[/paneer/i,'🧀'],[/curry/i,'🍛'],
+  [/gravy/i,'🍛'],[/masala/i,'🌶️'],[/egg|anda/i,'🥚'],
+  [/fish|prawn|seafood/i,'🐟'],[/mutton|lamb/i,'🥩'],
+  [/salad/i,'🥗'],[/papad/i,'🍘'],[/fry|fried/i,'🍳'],
+  [/juice|lassi|buttermilk/i,'🥛'],[/cola|pepsi|coke|soda|water/i,'🥤'],
+  [/tea|chai/i,'🍵'],[/coffee/i,'☕'],[/ice.?cream|dessert|sweet/i,'🍨'],
+  [/gulab.jamun/i,'🍮'],[/halwa/i,'🍮'],[/family|jumbo|combo/i,'👨‍👩‍👧‍👦'],
+];
+document.querySelectorAll('.card-emoji[data-name]').forEach(el => {
+  const match = EMOJI_MAP.find(([re]) => re.test(el.dataset.name));
+  el.textContent = match ? match[1] : '🍽️';
+});
+</script>
 
-{% endfor %}
-<h2>Grand Total: ₹{{ grand_total }}</h2>
-<br>
-
-<a href="/menu">
-    <button>Add Other Items</button>
-</a>
-<form action="/placeorder" method="POST">
-    <button type="submit">
-        Place Order
-    </button>
-</form>
 </body>
 </html>

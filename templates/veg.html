@@ -257,6 +257,23 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        /* CART FAB — paste inside <style> on every page */
+.cart-fab {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
+  right: 22px;
+  z-index: 50;
+  width: 62px; height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7a1a1a 0%, #3d0808 100%);
+  color: #fff8f0;
+  font-size: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(92,16,16,.55), 0 0 0 3px #c8881e;
+  transition: transform .15s ease;
+}
+.cart-fab:active { transform: scale(.91); }
 
         .cat-card:active .arrow-btn {
             background: var(--veg);
@@ -323,6 +340,10 @@
 	// ]]>
 </script>
 </head>
+<!-- CART FAB — paste just before </body> on every page -->
+<a href="/cart?table={{ table }}" class="cart-fab" aria-label="View Cart">
+  🛒
+</a>
 <body>
 
     <!-- Header -->

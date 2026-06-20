@@ -360,13 +360,17 @@ def itemdetails():
                 item_data = item
                 break
 
+    table = request.args.get("table")
+
     return render_template(
-        "item_details.html",
-        item=item_data
-    )
+     "item_details.html",
+     item=item_data,
+     table=table
+)
+    
 @app.route("/addtocart", methods=["POST"])
 def addtocart():
-
+    table = request.form.get("table")
     item_name = request.form.get("item_name")
     price = int(request.form.get("price"))
     quantity = int(request.form.get("quantity"))
@@ -384,9 +388,26 @@ def addtocart():
       grand_total += item["price"] * item["quantity"]
 
     return render_template(
+     "cart.html",
+     cart=cart,
+     grand_total=grand_total,
+     table=table
+    )
+@app.route("/cart")
+def showcart():
+
+    grand_total = 0
+
+    for item in cart:
+        grand_total += item["price"] * item["quantity"]
+
+    table = request.args.get("table")
+
+    return render_template(
         "cart.html",
         cart=cart,
-        grand_total=grand_total
+        grand_total=grand_total,
+        table=table
     )
 @app.route("/deleteitem", methods=["POST"])
 def deleteitem():

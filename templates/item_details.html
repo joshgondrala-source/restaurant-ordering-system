@@ -1,77 +1,607 @@
 <!DOCTYPE html>
-<html>
-<style>
-
-body{
-    font-size:24px;
-    padding:20px;
-}
-
-button{
-    font-size:22px;
-    padding:15px;
-}
-
-input{
-    font-size:22px;
-    padding:10px;
-}
-
-textarea{
-    font-size:20px;
-}
-
-</style>
+<html lang="en">
 <head>
-    <title>Item Details</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>{{ item.name }} — Bobby Da Dhaba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#5c1010">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:         #f2e9d8;
+  --bg2:        #e8dbc4;
+  --paper:      #fffdf7;
+  --ink:        #1e1208;
+  --ink2:       #4a3828;
+  --muted:      #8c7460;
+  --line:       #ddd0b8;
+  --brand:      #5c1010;
+  --brand2:     #7a1a1a;
+  --brand-dark: #3d0808;
+  --brand-text: #fff8f0;
+  --gold:       #c8881e;
+  --gold-soft:  #f7e3b8;
+  --gold-bg:    #fdf3df;
+  --shadow-sm:  0 3px 10px rgba(30,18,8,.10);
+  --shadow-md:  0 8px 24px rgba(30,18,8,.15);
+  --shadow-lg:  0 18px 48px rgba(30,18,8,.22);
+  --r:          20px;
+  --r-sm:       13px;
+}
+
+*, *::before, *::after { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+html { background: var(--bg); }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  background:
+    radial-gradient(ellipse 900px 500px at -5% -5%, rgba(200,136,30,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 700px 400px at 105% 5%, rgba(92,16,16,.18) 0%, transparent 50%),
+    linear-gradient(170deg, var(--bg) 0%, var(--bg2) 100%);
+  background-attachment: fixed;
+  max-width: 500px;
+  margin-inline: auto;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 110px);
+}
+
+/* ── HEADER ── */
+.header {
+  position: sticky; top: 0; z-index: 30;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+  color: var(--brand-text);
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 16px 16px;
+  border-bottom: 3px solid var(--gold);
+  box-shadow: var(--shadow-lg);
+  isolation: isolate;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 500px 180px at 50% -60px, rgba(200,136,30,.32), transparent 70%);
+  pointer-events: none; z-index: -1;
+}
+.header::after {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  border: 1px solid rgba(200,136,30,.25);
+  pointer-events: none;
+}
+.header-row {
+  display: flex; align-items: center; gap: 10px;
+  position: relative; z-index: 1;
+}
+.back-btn {
+  width: 44px; height: 44px;
+  border-radius: var(--r-sm);
+  background: rgba(255,255,255,.13);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0; text-decoration: none;
+  transition: background .14s, transform .14s;
+}
+.back-btn:active { background: rgba(255,255,255,.22); transform: scale(.91); }
+.back-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.header-center { flex: 1; text-align: center; }
+.header-crest {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  border: 1.5px dashed rgba(200,136,30,.6);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 5px;
+}
+.header-brand {
+  font-family: 'Fraunces', serif;
+  font-weight: 900; font-size: 20px;
+  letter-spacing: 1.5px; line-height: 1; color: #fff;
+}
+.table-chip {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 7px;
+  height: 44px; padding: 0 14px;
+  border-radius: var(--r-sm);
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .8px; text-transform: uppercase;
+  color: var(--gold-soft);
+}
+.table-chip .live {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold);
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(200,136,30,.3); }
+  50%      { box-shadow: 0 0 0 7px rgba(200,136,30,0); }
+}
+
+/* ── DISH HERO CARD ── */
+.dish-hero {
+  margin: 20px 14px 0;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+/* colored top band */
+.dish-band {
+  height: 10px;
+  background: linear-gradient(90deg, var(--brand) 0%, var(--brand2) 60%, var(--gold) 100%);
+}
+
+.dish-hero-inner {
+  padding: 20px 20px 22px;
+}
+
+/* big emoji */
+.dish-emoji-wrap {
+  width: 76px; height: 76px;
+  border-radius: 22px;
+  background: var(--gold-bg);
+  border: 1.5px solid var(--line);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 42px;
+  margin-bottom: 16px;
+  box-shadow: inset 0 -3px 0 rgba(0,0,0,.07), inset 0 1px 0 rgba(255,255,255,.7);
+}
+
+.dish-name {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(26px, 7vw, 34px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.dish-price {
+  display: inline-flex; align-items: baseline; gap: 4px;
+  margin-top: 10px;
+  background: var(--brand);
+  color: var(--brand-text);
+  padding: 7px 16px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+.price-sym { font-size: 14px; font-weight: 700; opacity: .85; }
+.price-num {
+  font-family: 'Fraunces', serif;
+  font-size: 26px; font-weight: 900;
+  letter-spacing: -.5px;
+}
+
+/* ── INFO PILLS ── */
+.info-pills {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  margin-top: 18px;
+}
+.info-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--gold-bg);
+  border: 1.5px solid var(--line);
+  font-size: 14px; font-weight: 700;
+  color: var(--ink2);
+}
+.info-pill .pill-icon { font-size: 18px; }
+.info-pill .pill-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); display: block; }
+.info-pill .pill-val { font-size: 14px; font-weight: 800; color: var(--ink); display: block; line-height: 1.1; }
+
+/* spice colours */
+.spice-mild  { background: #f0faf0; border-color: #b8ddb8; }
+.spice-mild .pill-val { color: #256325; }
+.spice-medium{ background: #fff7ec; border-color: #f0d098; }
+.spice-medium .pill-val { color: #a06010; }
+.spice-hot   { background: #fff0ee; border-color: #f0b8b0; }
+.spice-hot .pill-val { color: #a01818; }
+.spice-extra { background: #ffeaea; border-color: #e89090; }
+.spice-extra .pill-val { color: #800000; }
+
+/* ornament */
+.ornament {
+  display: flex; align-items: center; gap: 12px;
+  padding: 22px 14px 14px;
+}
+.ornament::before, .ornament::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.ornament-inner { color: var(--gold); font-size: 12px; letter-spacing: 6px; }
+
+/* ── FORM SECTIONS ── */
+.section {
+  margin: 0 14px 14px;
+  background: var(--paper);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.section-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.section-icon {
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: var(--gold-bg);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Fraunces', serif;
+  font-size: 18px; font-weight: 900;
+  letter-spacing: -.3px;
+  color: var(--ink);
+}
+.section-sub {
+  font-size: 11px; color: var(--muted);
+  margin-top: 2px; font-weight: 600;
+}
+
+.section-body { padding: 16px 18px; }
+
+/* Quick-tap suggestion chips */
+.suggest-chips {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: var(--gold-bg);
+  border: 1.5px solid var(--line);
+  font-size: 12px; font-weight: 700;
+  color: var(--ink2);
+  cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s;
+  user-select: none;
+}
+.chip:active, .chip.active {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+textarea {
+  width: 100%; min-height: 90px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: var(--ink);
+  padding: 14px 16px;
+  resize: vertical;
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+  line-height: 1.5;
+}
+textarea::placeholder { color: var(--muted); }
+textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(200,136,30,.15);
+}
+
+/* ── QUANTITY ── */
+.qty-row {
+  display: flex; align-items: center; gap: 0;
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  width: fit-content;
+}
+.qty-btn {
+  width: 52px; height: 52px;
+  background: none; border: none;
+  color: var(--brand);
+  font-size: 26px; font-weight: 900;
+  cursor: pointer; font-family: inherit;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s;
+  flex-shrink: 0;
+}
+.qty-btn:active { background: var(--gold-soft); }
+.qty-display {
+  min-width: 52px;
+  text-align: center;
+  font-family: 'Fraunces', serif;
+  font-size: 24px; font-weight: 900;
+  color: var(--ink);
+  border: none;
+  background: none;
+  outline: none;
+  /* hide spinners */
+  appearance:textfield;
+  -moz-appearance:textfield;
+}
+.qty-display::-webkit-inner-spin-button,
+.qty-display::-webkit-outer-spin-button { -webkit-appearance: none; }
+.qty-sep { width: 1px; height: 28px; background: var(--line); flex-shrink: 0; }
+
+/* ── ADD TO CART BUTTON ── */
+.cart-btn {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+  left: 50%; transform: translateX(-50%);
+  width: min(calc(100% - 28px), 472px);
+  height: 64px;
+  border: none; border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand2) 0%, var(--brand-dark) 100%);
+  color: var(--brand-text);
+  font-family: 'Fraunces', serif;
+  font-size: 20px; font-weight: 900;
+  letter-spacing: .3px;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(92,16,16,.5);
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  transition: transform .15s, background .15s;
+  z-index: 40;
+  border-top: 1px solid rgba(255,255,255,.1);
+}
+.cart-btn:active { transform: translateX(-50%) scale(.97); background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%); }
+.cart-btn .btn-icon { font-size: 24px; }
+.cart-btn .btn-price {
+  font-size: 14px; font-weight: 700;
+  opacity: .8; margin-left: 4px;
+  font-family: 'Inter', sans-serif;
+}/* CART FAB — paste inside <style> on every page */
+.cart-fab {
+  position: fixed;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 22px);
+  right: 22px;
+  z-index: 50;
+  width: 62px; height: 62px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7a1a1a 0%, #3d0808 100%);
+  color: #fff8f0;
+  font-size: 26px;
+  display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(92,16,16,.55), 0 0 0 3px #c8881e;
+  transition: transform .15s ease;
+}
+.cart-fab:active { transform: scale(.91); }
+
+/* hidden real input for form submit */
+input[type="hidden"] { display: none; }
+input[type="number"]#qty-real { display: none; }
+</style>
 </head>
+<!-- CART FAB — paste just before </body> on every page -->
+<a href="/cart?table={{ table }}" class="cart-fab" aria-label="View Cart">
+  🛒
+</a>
 <body>
 
-<h1>{{ item.name }}</h1>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-row">
+    <a href="javascript:history.back()" class="back-btn" aria-label="Back">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </a>
+    <div class="header-center">
+      <div class="header-crest">🍽️</div>
+      <div class="header-brand">BOBBY DA DHABA</div>
+    </div>
+    <div class="table-chip">
+      <span class="live"></span>
+      Table {{ table }}
+    </div>
+  </div>
+</div>
 
-<h3>Price: ₹{{ item.price }}</h3>
+<!-- DISH HERO -->
+<div class="dish-hero">
+  <div class="dish-band"></div>
+  <div class="dish-hero-inner">
+    <div class="dish-emoji-wrap" id="hero-emoji">🍽️</div>
+    <div class="dish-name">{{ item.name }}</div>
+    <div style="margin-top:14px;">
+      <div class="dish-price">
+        <span class="price-sym">₹</span>
+        <span class="price-num">{{ item.price }}</span>
+      </div>
+    </div>
 
-<p>🍽 Serves: {{ item.serves }}</p>
+    <!-- Info pills -->
+    <div class="info-pills">
+      <div class="info-pill">
+        <span class="pill-icon">👥</span>
+        <div>
+          <span class="pill-label">Serves</span>
+          <span class="pill-val" id="serves-val">1–2 persons</span>
+        </div>
+      </div>
+      <div class="info-pill" id="spice-pill">
+        <span class="pill-icon" id="spice-icon">🌶️</span>
+        <div>
+          <span class="pill-label">Spice Level</span>
+          <span class="pill-val" id="spice-val">—</span>
+        </div>
+      </div>
+    </div>
+    <!-- pass Jinja values safely to JS -->
+    <span id="j-serves" style="display:none">{{ item.serves if item.serves else '' }}</span>
+    <span id="j-spice"  style="display:none">{{ item.spice  if item.spice  else '' }}</span>
+  </div>
+</div>
 
-<p>🌶 Spice Level: {{ item.spice }}</p>
+<div class="ornament"><div class="ornament-inner">✦ ✦ ✦</div></div>
 
+<!-- FORM -->
+<form action="/addtocart" method="POST" id="order-form">
+  <input type="hidden" name="item_name" value="{{ item.name }}">
+  <input type="hidden" name="price" value="{{ item.price }}">
+  <input type="hidden" name="table" value="{{ table }}">
+  <input type="number" id="qty-real" name="quantity" value="1" min="1">
+  <input type="hidden" name="instructions" id="instructions-hidden">
 
+  <!-- Special Instructions -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-icon">📝</div>
+      <div>
+        <div class="section-title">Special Instructions</div>
+        <div class="section-sub">Tap to add · or type your own</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="suggest-chips" id="chips">
+        <div class="chip" data-val="Extra spicy">🌶️ Extra spicy</div>
+        <div class="chip" data-val="Less spicy">Less spicy</div>
+        <div class="chip" data-val="More gravy">More gravy</div>
+        <div class="chip" data-val="Less gravy">Less gravy</div>
+        <div class="chip" data-val="Less oil">Less oil</div>
+        <div class="chip" data-val="No salt">No salt</div>
+        <div class="chip" data-val="Extra butter">🧈 Extra butter</div>
+      </div>
+      <textarea id="instructions-text"
+        placeholder="e.g. Extra onions, less oil, no salt…"
+        rows="3"></textarea>
+    </div>
+  </div>
 
-<form action="/addtocart" method="POST">
-
-    <input type="hidden"
-           name="item_name"
-           value="{{ item.name }}">
-
-    <input type="hidden"
-           name="price"
-           value="{{ item.price }}">
-    <h3>Special Instructions</h3>
-
-    <textarea
-        name="instructions"
-        rows="4"
-        cols="40"
-        placeholder="Extra onions, less oil, extra butter"></textarea>
-    
-
-    <br><br>
-
-    <h3>Quantity</h3>
-
-    <input
-        type="number"
-        name="quantity"
-        value="1"
-        min="1">
-
-    <br><br>
-
-    <button type="submit">
-        Add To Cart
-    </button>
+  <!-- Quantity -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-icon">🔢</div>
+      <div>
+        <div class="section-title">Quantity</div>
+        <div class="section-sub">How many plates?</div>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="qty-row">
+        <button type="button" class="qty-btn" id="qty-minus">−</button>
+        <span class="qty-sep"></span>
+        <input class="qty-display" id="qty-display" type="number" value="1" min="1" readonly>
+        <span class="qty-sep"></span>
+        <button type="button" class="qty-btn" id="qty-plus">+</button>
+      </div>
+    </div>
+  </div>
 
 </form>
+
+<!-- ADD TO CART BUTTON -->
+<button class="cart-btn" id="cart-btn" type="button">
+  <span class="btn-icon">🛒</span>
+  Add to Cart
+  <span class="btn-price" id="btn-price">· ₹{{ item.price }}</span>
+</button>
+
+<script>
+/* ── Emoji mapper ── */
+const EMOJI_MAP = [
+  [/chicken/i,'🍗'],[/leg.piece|leg/i,'🍗'],[/wings?/i,'🍗'],
+  [/tikka/i,'🍢'],[/kebab|kabab/i,'🥩'],[/tandoor/i,'🔥'],
+  [/biryani/i,'🍚'],[/fried.rice|rice/i,'🍚'],
+  [/noodle|chow/i,'🍜'],[/chop.?suey/i,'🍜'],[/manchurian/i,'🥣'],
+  [/soup/i,'🍲'],[/roti|chapati|naan|paratha|bread/i,'🫓'],
+  [/dal|daal/i,'🫕'],[/paneer/i,'🧀'],[/curry/i,'🍛'],
+  [/gravy/i,'🍛'],[/masala/i,'🌶️'],[/egg|anda/i,'🥚'],
+  [/fish|prawn|seafood/i,'🐟'],[/mutton|lamb/i,'🥩'],
+  [/salad/i,'🥗'],[/papad/i,'🍘'],[/fry|fried/i,'🍳'],
+  [/juice|lassi|buttermilk/i,'🥛'],[/cola|pepsi|coke|soda|water/i,'🥤'],
+  [/tea|chai/i,'🍵'],[/coffee/i,'☕'],[/ice.?cream|dessert|sweet/i,'🍨'],
+  [/gulab.jamun/i,'🍮'],[/halwa/i,'🍮'],[/family|jumbo|combo/i,'👨‍👩‍👧‍👦'],
+];
+const itemName = document.querySelector('input[name="item_name"]').value;
+const match = EMOJI_MAP.find(([re]) => re.test(itemName));
+const emoji = match ? match[1] : '🍽️';
+document.getElementById('hero-emoji').textContent = emoji;
+
+/* ── Serves & Spice — read from Jinja spans with defaults ── */
+const servesRaw = document.getElementById('j-serves').textContent.trim();
+const spiceRaw  = document.getElementById('j-spice').textContent.trim();
+
+// Serves: default "1–2 persons" if blank
+const servesEl = document.getElementById('serves-val');
+if (servesRaw) {
+  servesEl.textContent = servesRaw == '1' ? '1 person' : servesRaw + ' persons';
+} // else keeps default "1–2 persons"
+
+// Spice: default "—" if blank, set icon + pill colour
+const spiceEl   = document.getElementById('spice-val');
+const spiceIcon = document.getElementById('spice-icon');
+const spicePill = document.getElementById('spice-pill');
+if (spiceRaw) {
+  spiceEl.textContent = spiceRaw;
+  const sl = spiceRaw.toLowerCase();
+  if (/extra|very hot/i.test(sl))      { spiceIcon.textContent = '🔥'; spicePill.classList.add('spice-extra'); }
+  else if (/hot/i.test(sl))            { spiceIcon.textContent = '🌶️'; spicePill.classList.add('spice-hot'); }
+  else if (/medium/i.test(sl))         { spiceIcon.textContent = '🌶️'; spicePill.classList.add('spice-medium'); }
+  else if (/mild|low/i.test(sl))       { spiceIcon.textContent = '✅'; spicePill.classList.add('spice-mild'); }
+} // else keeps "—" and neutral styling
+
+/* ── Suggestion chips ── */
+const textarea = document.getElementById('instructions-text');
+document.getElementById('chips').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  chip.classList.toggle('active');
+  // rebuild textarea from active chips + any manual text
+  syncInstructions();
+});
+
+let manualText = '';
+textarea.addEventListener('input', () => {
+  manualText = textarea.value;
+});
+
+function syncInstructions() {
+  const active = [...document.querySelectorAll('.chip.active')].map(c => c.dataset.val);
+  const combined = [...active, manualText].filter(Boolean).join(', ');
+  document.getElementById('instructions-hidden').value = combined;
+  // also update visible textarea to show chips
+  const chipText = active.join(', ');
+  textarea.value = chipText ? (manualText ? chipText + ', ' + manualText : chipText) : manualText;
+}
+
+/* ── Quantity ── */
+let qty = 1;
+const basePrice = parseInt("{{ item.price }}");
+const qtyDisplay = document.getElementById('qty-display');
+const qtyReal    = document.getElementById('qty-real');
+const btnPrice   = document.getElementById('btn-price');
+
+function updateQty(n) {
+  qty = Math.max(1, n);
+  qtyDisplay.value = qty;
+  qtyReal.value    = qty;
+  btnPrice.textContent = '· ₹' + (basePrice * qty);
+}
+document.getElementById('qty-minus').addEventListener('click', () => updateQty(qty - 1));
+document.getElementById('qty-plus').addEventListener('click',  () => updateQty(qty + 1));
+
+/* ── Submit ── */
+document.getElementById('cart-btn').addEventListener('click', () => {
+  // sync instructions one last time
+  const active = [...document.querySelectorAll('.chip.active')].map(c => c.dataset.val);
+  const combined = [...active, manualText].filter(Boolean).join(', ');
+  document.getElementById('instructions-hidden').value = combined;
+  document.getElementById('order-form').submit();
+});
+</script>
+
 </body>
 </html>
