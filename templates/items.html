@@ -391,7 +391,7 @@ body {
 <!-- ITEM GRID -->
 <main class="grid">
   {% for item in items %}
-  <a class="item-card" href="/itemdetails?name={{ item.name }}&table={{ table }}">
+  <a class="item-card" href="/itemdetails?name={{ item.name|urlencode }}&table={{ table }}">
     <div class="card-swatch"></div>
     <div class="card-inner">
       <div class="dish-icon" data-name="{{ item.name }}">🍽️</div>

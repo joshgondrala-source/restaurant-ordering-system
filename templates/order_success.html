@@ -1,74 +1,592 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Order Placed - Bobby Da Dhaba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#5c1010">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 
+:root{
+ --bg:#f2e9d8;
+ --bg2:#e7dbc3;
+ --paper:#fffdf7;
+ --brand:#5c1010;
+ --brand-dark:#3d0808;
+ --gold:#c8881e;
+ --gold-soft:#f7e3b8;
+ --line:#ddd0b8;
+ --ink:#1f140a;
+ --muted:#7f6b5b;
+ --radius:22px;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
 body{
-    font-size:24px;
-    padding:20px;
+
+font-family:'Inter',sans-serif;
+
+background:
+radial-gradient(circle at top left,#f8e4b5 0%,transparent 35%),
+radial-gradient(circle at bottom right,#d9b47c 0%,transparent 35%),
+linear-gradient(180deg,var(--bg),var(--bg2));
+
+min-height:100vh;
+max-width:500px;
+margin:auto;
+
+color:var(--ink);
+
+padding-bottom:40px;
+
 }
 
-button{
-    font-size:22px;
-    padding:15px;
+/* HEADER */
+
+.header{
+
+background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+
+padding:20px;
+
+border-bottom:3px solid var(--gold);
+
+text-align:center;
+
+color:white;
+
+box-shadow:0 12px 30px rgba(0,0,0,.25);
+
 }
 
-input{
-    font-size:22px;
-    padding:10px;
+.logo{
+
+width:60px;
+height:60px;
+
+border-radius:50%;
+
+margin:auto;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+background:rgba(255,255,255,.08);
+
+border:2px solid var(--gold);
+
+font-size:28px;
+
 }
 
-textarea{
-    font-size:20px;
+.brand{
+
+font-family:'Fraunces',serif;
+
+font-size:28px;
+
+margin-top:12px;
+
+letter-spacing:2px;
+
+}
+
+.table-chip{
+
+margin-top:15px;
+
+display:inline-flex;
+
+gap:8px;
+
+align-items:center;
+
+background:rgba(255,255,255,.1);
+
+padding:10px 18px;
+
+border-radius:999px;
+
+font-weight:700;
+
+font-size:13px;
+
+color:var(--gold-soft);
+
+}
+
+.live{
+
+width:8px;
+height:8px;
+border-radius:50%;
+background:gold;
+
+}
+
+/* SUCCESS */
+
+.success{
+
+padding:35px 22px;
+
+text-align:center;
+
+}
+
+.tick{
+
+width:120px;
+height:120px;
+
+margin:auto;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:60px;
+
+background:linear-gradient(135deg,var(--brand),var(--brand-dark));
+
+border:4px solid var(--gold);
+
+box-shadow:0 10px 30px rgba(92,16,16,.35);
+
+animation:pop .7s ease;
+
+}
+
+@keyframes pop{
+
+0%{
+transform:scale(.5);
+opacity:0;
+}
+
+100%{
+transform:scale(1);
+opacity:1;
+}
+
+}
+
+.success h1{
+
+margin-top:25px;
+
+font-size:36px;
+
+font-family:'Fraunces',serif;
+
+}
+
+.success h1 span{
+
+color:var(--brand);
+
+}
+
+.success p{
+
+margin-top:12px;
+
+font-size:16px;
+
+line-height:1.6;
+
+color:var(--muted);
+
+}
+
+/* CARD */
+
+.card{
+
+margin:30px 18px;
+
+background:var(--paper);
+
+border-radius:var(--radius);
+
+padding:22px;
+
+border:1px solid var(--line);
+
+box-shadow:0 8px 22px rgba(0,0,0,.08);
+
+}
+
+.card-title{
+
+font-family:'Fraunces',serif;
+
+font-size:22px;
+
+margin-bottom:20px;
+
+}
+
+.row{
+
+display:flex;
+
+justify-content:space-between;
+
+padding:14px 0;
+
+border-bottom:1px solid #eee;
+
+}
+
+.row:last-child{
+
+border:none;
+
+}
+
+.label{
+
+color:var(--muted);
+
+font-weight:600;
+
+}
+
+.value{
+
+font-weight:800;
+
+font-size:18px;
+
+}
+
+.total{
+
+font-size:24px;
+
+color:var(--brand);
+
 }
 
 </style>
-<head>
-    <title>Order Success</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
-<h1>✅ Order Placed Successfully</h1>
+<div class="header">
 
-<p>Order ID: {{ order_id }}</p>
+<div class="logo">🍽️</div>
 
-<p>Table: {{ table }}</p>
+<div class="brand">
+BOBBY DA DHABA
+</div>
 
-<p>Latest Order Total: ₹{{ total }}</p>
+<div class="table-chip">
 
-<hr>
+<span class="live"></span>
 
-<h2>Orders So Far</h2>
+Table {{ table }}
 
-{% for order in table_orders %}
+</div>
+
+</div>
+
+<div class="success">
+
+<div class="tick">
+✅
+</div>
+
+<h1>
+
+Order <span>Placed!</span>
+
+</h1>
 
 <p>
-Order #{{ order.order_id }}
--
-₹{{ order.total }}
+
+Your delicious meal is now being prepared.
+
+You can continue ordering anytime.
+
 </p>
 
-{% endfor %}
+</div>
 
-<hr>
+<div class="card">
 
-<h2>
-Running Table Total:
-₹{{ table_total }}
-</h2>
+<div class="card-title">
 
-<br>
+📋 Order Details
 
-<a href="/menu">
-    <button>Add More Items</button>
+</div>
+
+<div class="row">
+
+<div class="label">
+
+Order ID
+
+</div>
+
+<div class="value">
+
+#{{ order_id }}
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="label">
+
+Table
+
+</div>
+
+<div class="value">
+
+{{ table }}
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="label">
+
+Current Order
+
+</div>
+
+<div class="value total">
+
+₹{{ total }}
+
+</div>
+
+</div>
+
+</div>
+<!-- ORDERS SO FAR -->
+
+<div class="card">
+
+    <div class="card-title">
+        📜 Orders So Far
+    </div>
+
+    {% for order in table_orders %}
+
+    <div class="row">
+
+        <div>
+
+            <div style="font-weight:700">
+                Order #{{ order.order_id }}
+            </div>
+
+            <div style="font-size:13px;color:var(--muted);margin-top:3px;">
+                Successfully Added
+            </div>
+
+        </div>
+
+        <div class="value">
+
+            ₹{{ order.total }}
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+
+<!-- RUNNING TOTAL -->
+
+<div class="card">
+
+    <div class="card-title">
+
+        💰 Running Table Total
+
+    </div>
+
+    <div style="text-align:center;margin-top:10px;">
+
+        <div
+        style="
+        font-size:42px;
+        font-weight:900;
+        color:var(--brand);
+        font-family:'Fraunces',serif;
+        ">
+
+            ₹{{ table_total }}
+
+        </div>
+
+        <div
+        style="
+        color:var(--muted);
+        margin-top:8px;
+        font-size:15px;
+        ">
+
+            Total amount ordered at this table
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- BUTTONS -->
+
+<div
+style="
+padding:0 18px;
+display:flex;
+flex-direction:column;
+gap:16px;
+margin-top:12px;
+">
+
+<a
+href="/menu?table={{ table }}"
+style="
+text-decoration:none;
+">
+
+<button
+style="
+width:100%;
+height:62px;
+border:none;
+border-radius:18px;
+background:linear-gradient(135deg,#c8881e,#a96c0f);
+color:white;
+font-size:20px;
+font-weight:800;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(200,136,30,.35);
+">
+
+➕ Add More Items
+
+</button>
+
 </a>
-<br><br>
 
-<form action="/requestbill" method="POST">
-    <button type="submit">
-        Request Bill
-    </button>
+
+<form
+action="/requestbill"
+method="POST">
+
+<input
+type="hidden"
+name="table"
+value="{{ table }}">
+
+<button
+style="
+width:100%;
+height:62px;
+border:none;
+border-radius:18px;
+background:linear-gradient(135deg,#5c1010,#3d0808);
+color:white;
+font-size:20px;
+font-weight:800;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(92,16,16,.4);
+">
+
+🧾 Ready for Billing
+
+</button>
+
 </form>
+
+</div>
+
+
+
+<!-- THANK YOU -->
+
+<div
+style="
+margin-top:45px;
+text-align:center;
+padding-bottom:40px;
+">
+
+<div style="font-size:38px;">
+🙏
+</div>
+
+<div
+style="
+margin-top:12px;
+font-family:'Fraunces',serif;
+font-size:28px;
+font-weight:900;
+">
+
+Thank You!
+
+</div>
+
+<div
+style="
+margin-top:10px;
+color:var(--muted);
+line-height:1.7;
+font-size:15px;
+">
+
+We hope you enjoyed your meal.
+
+</div>
+
+<div
+style="
+margin-top:30px;
+font-size:12px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:var(--muted);
+">
+
+Swaad ● Seva ● Sanskar
+
+</div>
+
+</div>
 
 </body>
 </html>
