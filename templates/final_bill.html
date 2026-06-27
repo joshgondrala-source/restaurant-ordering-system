@@ -1,80 +1,163 @@
 <!DOCTYPE html>
-<html>
-<style>
-
-body{
-    font-size:24px;
-    padding:20px;
-}
-
-button{
-    font-size:22px;
-    padding:15px;
-}
-
-input{
-    font-size:22px;
-    padding:10px;
-}
-
-textarea{
-    font-size:20px;
-}
-
-</style>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Final Bill</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6ebd8;
+            --bg2: #e8d8b8;
+            --paper: #fffdf8;
+            --brand: #5c1010;
+            --brand-dark: #3d0808;
+            --gold: #c8881e;
+            --line: #e7d8bf;
+            --ink: #1f140a;
+            --muted: #7f6b5b;
+            --radius: 22px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top left, #f9e7b7 0%, transparent 32%), radial-gradient(circle at bottom right, #d8af66 0%, transparent 28%), linear-gradient(180deg, var(--bg), var(--bg2));
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 18px 16px 36px;
+        }
+
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 10px 24px rgba(0,0,0,.06);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: white;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            margin-bottom: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.18);
+        }
+
+        .header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+
+        .table-badge {
+            margin-top: 8px;
+            display: inline-block;
+            background: rgba(255,255,255,.12);
+            padding: 7px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .summary-box {
+            background: #fcf6ea;
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1e4cb;
+            font-size: 15px;
+        }
+
+        .summary-row:last-child { border-bottom: none; }
+
+        .summary-row strong { color: var(--brand-dark); }
+
+        .total-box {
+            margin-top: 14px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: white;
+            padding: 14px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .total-box h2 {
+            font-size: 22px;
+            font-family: 'Fraunces', serif;
+            margin-top: 4px;
+        }
+
+        .note {
+            margin-top: 14px;
+            text-align: center;
+            color: var(--muted);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--gold), #a96c0f);
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(200,136,30,.24);
+            margin-top: 16px;
+        }
+
+        @media (min-width: 700px) {
+            body { padding: 24px 32px 48px; }
+            .card { padding: 24px; }
+        }
+    </style>
 </head>
 <body>
+    <div class="card">
+        <div class="header">
+            <h1>Final Bill</h1>
+            <div class="table-badge">Table {{ table }}</div>
+        </div>
 
-<h1>Final Bill</h1>
+        <div class="summary-box">
+            <div class="summary-row"><strong>Food Total</strong><span>₹{{ food_total }}</span></div>
+            <div class="summary-row"><strong>GST (5%)</strong><span>₹{{ gst|round(2) }}</span></div>
+            <div class="summary-row"><strong>Discount ({{ discount }}%)</strong><span>- ₹{{ discount_amount|round(2) }}</span></div>
+        </div>
 
-<p>Table: {{ table }}</p>
+        <div class="total-box">
+            <div>Amount To Be Paid</div>
+            <h2>₹{{ rounded_total }}</h2>
+        </div>
 
-<hr>
+        <div class="note">
+            <p>Please complete your payment at the counter.</p>
+            <p style="margin-top:6px;">Thank You For Dining With Us ❤️</p>
+            <p style="margin-top:6px;">Visit Again!</p>
+        </div>
 
-<p><b>Food Total:</b> ₹{{ food_total }}</p>
-
-<p><b>GST (5%):</b> ₹{{ gst|round(2) }}</p>
-
-<p>
-<b>Discount ({{ discount }}%):</b>
-- ₹{{ discount_amount|round(2) }}
-</p>
-
-<hr>
-
-<h2>
-Amount To Be Paid:
-₹{{ rounded_total }}
-</h2>
-
-<hr>
-
-<p>
-Please complete your payment at the counter.
-</p>
-
-<p>
-Thank You For Dining With Us ❤️
-</p>
-
-<p>
-Visit Again!
-</p>
-
-<br><br>
-
-<form action="/markpaid" method="POST">
-
-    <input
-        type="hidden"
-        name="table"
-        value="{{ table }}">
-
-    <button type="submit">
-        Payment Received
-    </button>
-
-</form>
+        <form action="/markpaid" method="POST">
+            <input type="hidden" name="table" value="{{ table }}">
+            <button type="submit">Payment Received</button>
+        </form>
+    </div>
+</body>
+</html>

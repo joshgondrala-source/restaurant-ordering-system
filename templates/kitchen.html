@@ -1,65 +1,188 @@
 <!DOCTYPE html>
-<html>
-<style>
-
-body{
-    font-size:24px;
-    padding:20px;
-}
-
-button{
-    font-size:22px;
-    padding:15px;
-}
-
-input{
-    font-size:22px;
-    padding:10px;
-}
-
-textarea{
-    font-size:20px;
-}
-
-</style>
+<html lang="en">
 <head>
-    <title>kitchen Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Kitchen Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta http-equiv="refresh" content="3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6ebd8;
+            --bg2: #e8d8b8;
+            --paper: #fffdf8;
+            --brand: #5c1010;
+            --brand-dark: #3d0808;
+            --gold: #c8881e;
+            --line: #e7d8bf;
+            --ink: #1f140a;
+            --muted: #7f6b5b;
+            --radius: 22px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top left, #f9e7b7 0%, transparent 32%), radial-gradient(circle at bottom right, #d8af66 0%, transparent 28%), linear-gradient(180deg, var(--bg), var(--bg2));
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 18px 16px 36px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: white;
+            border-radius: 24px;
+            padding: 20px 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.18);
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin-top: 8px;
+            color: #f8e4b2;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .order-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 24px rgba(0,0,0,.06);
+        }
+
+        .order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .order-id {
+            font-family: 'Fraunces', serif;
+            font-size: 20px;
+            color: var(--brand-dark);
+        }
+
+        .status-pill {
+            background: linear-gradient(135deg, var(--gold), #a96c0f);
+            color: white;
+            padding: 7px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .meta-chip {
+            background: #f8efdf;
+            padding: 6px 10px;
+            border-radius: 999px;
+        }
+
+        .item-row {
+            padding: 10px 0;
+            border-top: 1px solid #f1e4cb;
+        }
+
+        .item-row:first-of-type {
+            border-top: none;
+        }
+
+        .item-name {
+            font-weight: 800;
+            color: var(--brand-dark);
+        }
+
+        .item-qty {
+            color: var(--gold);
+            font-weight: 700;
+            margin-top: 3px;
+        }
+
+        .note {
+            margin-top: 6px;
+            font-size: 13px;
+            color: var(--muted);
+            background: #fcf6ea;
+            padding: 8px 10px;
+            border-radius: 10px;
+        }
+
+        .empty-state {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            color: var(--muted);
+            box-shadow: 0 10px 24px rgba(0,0,0,.06);
+        }
+
+        @media (min-width: 700px) {
+            body { padding: 28px 32px 48px; }
+            .header { padding: 24px 22px; }
+            .order-card { padding: 18px; }
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Kitchen Dashboard</h1>
+        <p>Live orders and preparation updates</p>
+    </div>
 
-<h1>kitchen Dashboard</h1>
+    {% if orders %}
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-top">
+                <div class="order-id">ORDER #{{ order["order_id"] }}</div>
+                <div class="status-pill">{{ order["status"] }}</div>
+            </div>
 
-{% for order in orders %}
+            <div class="meta-row">
+                <div class="meta-chip">🕒 {{ order["time"] }}</div>
+                <div class="meta-chip">🪑 Table {{ order["table"] }}</div>
+            </div>
 
-<hr>
-
-<h2>ORDER #{{ order["order_id"] }}</h2>
-<p>{{ order["time"] }}</p>
-<p>
-<b>{{ order["status"] }}</b>
-</p>
-
-<h3>TABLE {{ order["table"] }}</h3>
-
-<hr>
-
-{% for item in order["items"] %}
-
-<p>
-<b>{{ item["name"] }}</b> x{{ item["quantity"] }}
-</p>
-
-<p>
-Note: {{ item["instructions"] }}
-</p>
-
-<br>
-
-{% endfor %}
-
-{% endfor %}
-
+            {% for item in order["items"] %}
+            <div class="item-row">
+                <div class="item-name">{{ item["name"] }}</div>
+                <div class="item-qty">x{{ item["quantity"] }}</div>
+                {% if item["instructions"] %}
+                <div class="note">Note: {{ item["instructions"] }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">No orders at the moment.</div>
+    {% endif %}
 </body>
 </html>

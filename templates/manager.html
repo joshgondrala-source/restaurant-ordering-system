@@ -1,102 +1,196 @@
 <!DOCTYPE html>
-<html>
-<style>
-
-body{
-    font-size:24px;
-    padding:20px;
-}
-
-button{
-    font-size:22px;
-    padding:15px;
-}
-
-input{
-    font-size:22px;
-    padding:10px;
-}
-
-textarea{
-    font-size:20px;
-}
-
-</style>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Manager Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f6ebd8;
+            --bg2: #e8d8b8;
+            --paper: #fffdf8;
+            --brand: #5c1010;
+            --brand-dark: #3d0808;
+            --gold: #c8881e;
+            --line: #e7d8bf;
+            --ink: #1f140a;
+            --muted: #7f6b5b;
+            --radius: 22px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top left, #f9e7b7 0%, transparent 32%), radial-gradient(circle at bottom right, #d8af66 0%, transparent 28%), linear-gradient(180deg, var(--bg), var(--bg2));
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 18px 16px 36px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: white;
+            border-radius: 24px;
+            padding: 20px 18px;
+            box-shadow: 0 12px 30px rgba(0,0,0,.18);
+            margin-bottom: 16px;
+        }
+
+        .header h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 26px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin-top: 8px;
+            color: #f8e4b2;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 10px 24px rgba(0,0,0,.06);
+        }
+
+        .table-title {
+            font-family: 'Fraunces', serif;
+            font-size: 22px;
+            color: var(--brand-dark);
+            margin-bottom: 10px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1e4cb;
+            font-size: 15px;
+        }
+
+        .order-item:last-child { border-bottom: none; }
+
+        .summary-box {
+            margin-top: 12px;
+            background: #fcf6ea;
+            border-radius: 14px;
+            padding: 12px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 6px 0;
+            font-size: 15px;
+        }
+
+        .summary-row strong { color: var(--brand-dark); }
+
+        form {
+            margin-top: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+            color: white;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(92,16,16,.22);
+        }
+
+        .empty-state {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            color: var(--muted);
+            box-shadow: 0 10px 24px rgba(0,0,0,.06);
+        }
+
+        @media (min-width: 700px) {
+            body { padding: 24px 32px 48px; }
+            .card { padding: 18px; }
+            button { font-size: 17px; }
+        }
+    </style>
 </head>
 <body>
+    <div class="header">
+        <h1>Manager Dashboard</h1>
+        <p>Review billing requests and generate final bills</p>
+    </div>
 
-<h1>Manager Dashboard</h1>
+    {% if bill_requests %}
+        {% for request in bill_requests %}
+        <div class="card">
+            <div class="table-title">Table {{ request["table"] }}</div>
 
-{% for request in bill_requests %}
+            {% set food_total = namespace(value=0) %}
 
-<hr>
+            <div class="summary-box">
+                <div class="summary-row"><strong>Orders</strong></div>
+                {% for order in orders %}
+                    {% if order["table"] == request["table"] %}
+                        <div class="order-item">
+                            <span>Order #{{ order["order_id"] }}</span>
+                            <span>₹{{ order["total"] }}</span>
+                        </div>
+                        {% set food_total.value = food_total.value + order["total"] %}
+                    {% endif %}
+                {% endfor %}
+            </div>
 
-<h2>Table {{ request["table"] }}</h2>
+            <div class="summary-box">
+                <div class="summary-row"><strong>Food Total</strong><span>₹{{ food_total.value }}</span></div>
+                <div class="summary-row"><strong>GST (5%)</strong><span>₹{{ (food_total.value * 0.05)|round(2) }}</span></div>
+            </div>
 
-{% set food_total = namespace(value=0) %}
+            <form action="/generatebill" method="POST">
+                <input type="hidden" name="table" value="{{ request['table'] }}">
+                <input type="hidden" name="food_total" value="{{ food_total.value }}">
 
-<h3>Orders</h3>
+                <label for="discount-{{ request['table'] }}">Discount (%)</label>
+                <input id="discount-{{ request['table'] }}" type="number" name="discount" value="0" min="0" max="100">
 
-{% for order in orders %}
-
-    {% if order["table"] == request["table"] %}
-
-        <p>
-        Order #{{ order["order_id"] }}
-        - ₹{{ order["total"] }}
-        </p>
-
-        {% set food_total.value = food_total.value + order["total"] %}
-
+                <button type="submit">Generate Final Bill</button>
+            </form>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">No billing requests at the moment.</div>
     {% endif %}
-
-{% endfor %}
-
-<hr>
-
-<p>
-<b>Food Total:</b>
-₹{{ food_total.value }}
-</p>
-
-<p>
-<b>GST (5%):</b>
-₹{{ (food_total.value * 0.05)|round(2) }}
-</p>
-
-<form action="/generatebill" method="POST">
-
-    <input
-        type="hidden"
-        name="table"
-        value="{{ request['table'] }}">
-
-    <input
-        type="hidden"
-        name="food_total"
-        value="{{ food_total.value }}">
-
-    <label>Discount (%)</label>
-
-    <input
-        type="number"
-        name="discount"
-        value="0"
-        min="0"
-        max="100">
-
-    <br><br>
-
-    <button type="submit">
-        Generate Final Bill
-    </button>
-
-</form>
-
-{% endfor %}
-
 </body>
 </html>
